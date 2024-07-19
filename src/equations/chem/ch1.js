@@ -11,7 +11,7 @@ export const chemCh1Equations = [
   "molarity = solute_moles_molecules / solvent_volm",
 
   ...eqsInTermsOf(
-    ["a", "b", "solute", "solvent"],
+    ["a", "b", "solute", "solvent", "ab", "solution"],
     "{}_moles_molecules = {}_volm / 22.4",
     "{}_n_molecules = {}_moles_molecules * Na",
     "{}_n_atoms = {}_mole_atoms * Na",
@@ -20,9 +20,16 @@ export const chemCh1Equations = [
     "{}_moles_molecules = {}_weight / {}_mass_molecules",
     "{}_mass_one_atom = {}_mass_atoms / Na",
     "{}_mass_one_molecule = {}_mass_molecules / Na",
-    "{}_mass_percent = {}_mass_solute * 100 / {}_mass_solvent",
     "{}_mass_molecules = 2 * {}_vapor_density",
   ),
+
+  "ab_weight = a_weight + b_weight",
+  "a_mass_percent = a_weight * 100 / ab_weight",
+  "b_mass_percent = b_weight * 100 / ab_weight",
+
+  "solution_weight = solvent_weight + solute_weight",
+  "solute_mass_percent = solute_weight * 100 / solution_weight",
+  "solvent_mass_percent = solvent_weight * 100 / solution_weight",
 ].map(eq);
 
 export const chemCh1Names = Object.assign(
@@ -42,6 +49,13 @@ export const chemCh1Names = Object.assign(
     moles_a: "no. of moles of A",
     moles_b: "no. of moles of B",
     volume_solvent: "volume of solvent",
+
+    ab_weight: "mass of solution of A and B",
+    solution_weight: "mass of solution",
+    a_mass_percent: "mass percentage of A",
+    b_mass_percent: "mass percentage of B",
+    solute_mass_percent: "mass percentage of solute",
+    solvent_mass_percent: "mass percentage of solvent",
   },
   namesInTermsOf(["a", "b", "solute", "solvent"], {
     moles_molecules: "amount of molecules{ of $}",
@@ -55,7 +69,6 @@ export const chemCh1Names = Object.assign(
     mass_molecules: "mass of one mole molecules{ of $}",
     mass_one_atom: "mass of one atom{ of $}",
     mass_one_molecule: "mass of one molecule{ of $}",
-    mass_percent: "mass percent{ of $}",
     mass_solute: "mass of solute{ in $}",
     mass_solvent: "mass of solvent{ in $}",
     vapor_density: "vapor density{ of $}",
