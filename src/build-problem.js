@@ -5,29 +5,25 @@ import "nerdamer/Solve";
 
 import { simplify } from "mathjs";
 import { equations } from "./equations.js";
+import { equate, simplifyOptions } from "./util.js";
 
-export function buildProblem(equation) {
-  const find =
-    equation.variables[Math.floor(Math.random() * equation.variables.length)];
+export function buildProblem({ equation, variables }) {
+  const find = variables[Math.floor(Math.random() * variables.length)];
+  let eq = nerdamer(equation).solveFor(find).toString();
 
-  const problem = {
-    equation: nerdamer(equation.equation).solveFor(find).toString(),
-    find,
-    iv: [],
-  };
-
-  problem.steps = [
-    find === equation.variables[0] ? null : equation.equation,
-    find + " = " + simplify(problem.equation, { exactFractions: true }),
+  const steps = [
+    find === variables[0] ? null : equation,
+    equate(find, simplify(eq, simplifyOptions)),
   ].filter(Boolean);
-  problem.given = [
+
+  const given = [
     ...new Set(
-      equation.variables
+      variables
         .filter((variable) => variable !== find)
         .flatMap((variable) => {
           const otherEquation = equations.find(
             (other) =>
-              other.equation !== equation.equation &&
+              other.equation !== equation &&
               other.variables.includes(variable) &&
               !other.variables.includes(find),
           );
@@ -35,18 +31,12 @@ export function buildProblem(equation) {
           if (otherEquation) {
             const equated = simplify(
               nerdamer(otherEquation.equation).solveFor(variable).toString(),
-              { exactFractions: true },
+              simplifyOptions,
             ).toString();
 
-            problem.steps.push(
-              variable + " = " + simplify(equated, { exactFractions: true }),
-            );
-            problem.equation = problem.equation.replace(
-              variable,
-              `(${equated})`,
-            );
+            steps.push(equate(variable, simplify(equated, simplifyOptions)));
+            eq = eq.replace(variable, `(${equated})`);
 
-            problem.iv.push(...otherEquation.variables);
             return otherEquation.variables.filter(
               (otherVariable) =>
                 otherVariable !== variable && otherVariable !== find,
@@ -57,7 +47,10 @@ export function buildProblem(equation) {
     ),
   ];
 
-  problem.equation =
-    find + " = " + simplify(problem.equation, { exactFractions: true });
-  return problem;
+  return {
+    find,
+    equation: equate(find, simplify(eq, simplifyOptions)),
+    steps,
+    given,
+  };
 }
