@@ -1,4 +1,4 @@
-import { eq, eqsInTermsOf, namesInTermsOf } from "../../util";
+import { eq, eqsInTermsOf, namesInTermsOf } from "../../util.js";
 
 export const chemCh2Equations = [
   ...eqsInTermsOf(
@@ -25,24 +25,24 @@ export const chemCh2Equations = [
 
   ...eqsInTermsOf(
     ["p", "q", "one_electron"],
-    "ME * {}_electron_velocity * {}_orbit_radius = {}_n * (planck_constant / (2 * PI))",
+    "ME * {}_electron_velocity__ * {}_orbit_radius = {}_number__ * (planck_constant / (2 * PI))",
     "{}_electron_energy = -rydberg_constant * (1 / n ** 2)",
-    "{}_orbit_radius = {}_n * 52.9",
-    "{}_electron_wavelength = planck_constant / {}_electron_mass * {}_electron_velocity",
-    "{}_electron_kinetic_energy = ({}_electron_mass * ({}_electron_velocity ** 2)) / 2",
-    "{}_electron_momentum = {}_electron_mass * {}_electron_velocity",
+    "{}_orbit_radius = {}_number__ * 52.9",
+    "{}_electron_wavelength = planck_constant / {}_electron_mass * {}_electron_velocity__",
+    "{}_electron_kinetic_energy = ({}_electron_mass * ({}_electron_velocity__ ** 2)) / 2",
+    "{}_electron_momentum__ = {}_electron_mass * {}_electron_velocity__",
     "({}_electron_velocity_uncertainty) * ({}_electron_momentum_uncertainty) = planck_constant / (4 * PI * {}_electron_mass)", // TODO: maybe expand
   ),
 
   ...eqsInTermsOf(
     ["p", "q"],
-    "{}_n_number_orbitals = {}_n ** 2",
+    "{}_n_number_orbitals = {}_number_ ** 2",
     "{}_n_number_electrons = 2 * {}_n_number_orbitals",
-    "{}_n_total_nodes = {}_n - 1",
+    "{}_n_total_nodes = {}_number__ - 1",
     "{}_n_total_nodes = {}_n_angular_nodes + {}_n_radial_nodes",
     "{}_n_angular_nodes = {}_l",
-    "{}_n_radial_nodes = {}_n - {}_l - 1",
-    "{}_n_orbital_energy = {}_n + {}_l",
+    "{}_n_radial_nodes = {}_number__ - {}_l - 1",
+    "{}_n_orbital_energy = {}_number__ + {}_l",
   ),
 
   "one_electron_ion_energy = -rydberg_constant * ((one_electron_atomic_number ** 2) / (one_electron_n ** 2))",
@@ -66,7 +66,7 @@ export const chemCh2Names = Object.assign(
     wave_number: "wave number of electron{ $}",
   }),
   namesInTermsOf(["p", "q"], {
-    n: "principal atomic number of orbital{ $}",
+    number__: "principal atomic number of orbital{ $}",
     l: "azimuthal atomic number of orbital{ $}",
     n_number_orbitals: "number of orbitals in shell{ $}",
     n_number_electrons: "number of electrons in shell{ $}",
@@ -76,12 +76,12 @@ export const chemCh2Names = Object.assign(
     n_orbital_energy: "energy of orbital{ in $}",
   }),
   namesInTermsOf(["p", "q"], {
-    electron_velocity: "velocity of electron{ $}",
+    electron_velocity__: "velocity of electron{ $}",
     orbit_radius: "radius of orbit{ of electron $}",
     electron_wavelength: "wavelength of electron{ $}",
     electron_energy: "energy of electron{ $}",
     electron_kinetic_energy: "kinetic energy of electron{ $}",
-    electron_momentum: "momentum of electron{ $}",
+    electron_momentum__: "momentum of electron{ $}",
     electron_mass: "mass of electron{ $}",
     electron_velocity_uncertainty: "uncertainty in velocity of electron{ $}",
     electron_momentum_uncertainty: "uncertainty in momentum of electron{ $}",
@@ -90,7 +90,7 @@ export const chemCh2Names = Object.assign(
     wave_number_hydrogen: "wave number of hydrogen atom",
     transition_spectrum: "transition spectrum of atom",
 
-    one_electron_velocity: "velocity of electron in single electron atom",
+    one_electron_velocity__: "velocity of electron in single electron atom",
     one_electron_orbit_radius:
       "radius of orbit of electron in single electron atom",
     one_electron_electron_wavelength:
@@ -98,7 +98,7 @@ export const chemCh2Names = Object.assign(
     one_electron_electron_energy: "energy of electron in single electron atom",
     one_electron_electron_kinetic_energy:
       "kinetic energy of electron in single electron atom",
-    one_electron_electron_momentum:
+    one_electron_electron_momentum__:
       "momentum of electron in single electron atom",
     one_electron_electron_mass: "mass of electron in single electron atom",
     one_electron_electron_velocity_uncertainty:
@@ -112,3 +112,9 @@ export const chemCh2Names = Object.assign(
     rydberg_constant: "rydberg constant",
   },
 );
+
+const keys = Object.keys(chemCh2Names);
+for (const k of keys) {
+  const f = keys.filter((key) => key.includes(k));
+  if (f.length > 1) console.log({ k, f });
+}
