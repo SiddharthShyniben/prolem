@@ -15,6 +15,7 @@ function test() {
 
   let j = 0;
   for (const equation of equations) {
+    if (equation.variables.includes("planck_constant")) throw equation;
     for (const variable of equation.variables) {
       if (!names[variable]) {
         console.error(`Missing name for ${variable}`, equation);

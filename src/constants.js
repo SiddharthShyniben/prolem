@@ -14,7 +14,7 @@ export const massTable = [
 
 export const constants = {
   Na: 6.022e23,
-  planck_constant: 6.626e-34,
+  planck_constants: 6.626e-34,
   speed_of_light: 3e8,
   ME: 9.1094e-31,
   PI: Math.PI,
@@ -23,7 +23,7 @@ export const constants = {
 
 export const constantsNames = {
   Na: "N_A",
-  plancks_constant: "\\textstyle{h}",
+  planck_constant: "\\textstyle{h}",
   speed_of_light: "c",
   ME: "m_e",
   PI: "\\pi",
