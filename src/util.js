@@ -1,3 +1,5 @@
+import { constants } from "./constants";
+
 export const $ = (...args) => document.querySelector(...args);
 
 export const getRandomInt = (min, max) =>
@@ -13,7 +15,7 @@ export const eq = (equation) =>
         equation,
         variables: [...equation.matchAll(/([A-z_])+/g)]
           .map((x) => x[0])
-          .filter((x) => ![].includes(x)),
+          .filter((x) => ![...Object.keys(constants)].includes(x)),
       };
 
 export function eqsInTermsOf(prefixes, ...eqs) {
@@ -57,5 +59,4 @@ export const inTermsOf = (prefixes, object) =>
   );
 
 export const equate = (a, b) => a + " = " + b;
-
 export const simplifyOptions = { exactFractions: true };

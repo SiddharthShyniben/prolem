@@ -1,20 +1,11 @@
+console.time("ready");
+
 import { buildProblem } from "./build-problem";
 import { buildStatement } from "./build-statement";
 import { equations } from "./equations";
 import { accordionify } from "./animate";
 import { $ } from "./util";
 import { renderStatement } from "./render";
-
-window.MathJax = {
-  tex: {
-    macros: {
-      myexp: ["#1*10^{#2}", 2],
-    },
-  },
-  chtml: {
-    displayAlign: "left",
-  },
-};
 
 const template = $("#block");
 
@@ -39,12 +30,11 @@ async function push() {
 
   answer.innerHTML = render.answer;
 
-  await MathJax.typesetPromise();
+  renderMathInElement(document.body, { fleqn: true });
   question.innerText = render.question;
   accordion.style.display = "block";
   questionHeader.style.display = "block";
-  question.scrollIntoView();
+  question.scrollIntoView({ behaviour: "smooth" });
 }
 
 window.push = push;
-document.addEventListener("DOMContentLoaded", push);

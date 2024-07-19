@@ -1,5 +1,5 @@
 import { AssignmentNode, evaluate, parse, resolve } from "mathjs";
-import { constants, constantsNames } from "./data";
+import { constants, constantsNames } from "./constants";
 import { names } from "./equations";
 
 export function renderStatement({ equation, steps, vals, str }) {
@@ -37,23 +37,24 @@ export function renderStatement({ equation, steps, vals, str }) {
             .map((step) => latexify(step.toTex()))
             .concat("<br>");
         })
-        .concat([
-          parsedEqn.toTex(),
-          transformed.toTex(),
+        .concat(
+          [
+            parsedEqn.toTex(),
+            transformed.toTex(),
 
-          resolve(transformed, { ...constants, ...vals }).toTex(),
+            resolve(transformed, { ...constants, ...vals }).toTex(),
 
-          new AssignmentNode(
-            parsedEqn.object,
-            parse(
-              evaluate(parsedEqn.value.toString(), {
-                ...constants,
-                ...vals,
-              }).toString(),
-            ),
-          ).toTex(),
-        ])
-        .map(latexify),
+            new AssignmentNode(
+              parsedEqn.object,
+              parse(
+                evaluate(parsedEqn.value.toString(), {
+                  ...constants,
+                  ...vals,
+                }).toString(),
+              ),
+            ).toTex(),
+          ].map(latexify),
+        ),
     ),
   ].join("");
 

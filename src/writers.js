@@ -1,4 +1,4 @@
-import { constants, massTable } from "./data";
+import { constants, massTable } from "./constants";
 import { getRandomInt, hasSameElements } from "./util";
 
 export const analogies = [
