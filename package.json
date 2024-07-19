@@ -8,6 +8,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "serve": "^11.3.2"
   },
+  "type": "module",
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",

@@ -13,9 +13,9 @@ export const eq = (equation) =>
     ? equation
     : {
         equation,
-        variables: [...equation.matchAll(/([A-z_])+/g)]
+        variables: [...equation.matchAll(/[A-z_]+/g)]
           .map((x) => x[0])
-          .filter((x) => ![...Object.keys(constants)].includes(x)),
+          .filter((x) => !["e", ...Object.keys(constants)].includes(x)),
       };
 
 export function eqsInTermsOf(prefixes, ...eqs) {
@@ -60,3 +60,10 @@ export const inTermsOf = (prefixes, object) =>
 
 export const equate = (a, b) => a + " = " + b;
 export const simplifyOptions = { exactFractions: true };
+export const katexOpts = {
+  fleqn: true,
+  delimiters: [
+    { left: "$$", right: "$$", display: true },
+    { left: "$", right: "$", display: false },
+  ],
+};

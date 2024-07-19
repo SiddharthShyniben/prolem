@@ -1,11 +1,10 @@
-console.time("ready");
-
 import { buildProblem } from "./build-problem";
 import { buildStatement } from "./build-statement";
 import { equations } from "./equations";
 import { accordionify } from "./animate";
-import { $ } from "./util";
+import { $, katexOpts } from "./util";
 import { renderStatement } from "./render";
+import "./test.js";
 
 const template = $("#block");
 
@@ -29,9 +28,9 @@ async function push() {
   const render = renderStatement(statement);
 
   answer.innerHTML = render.answer;
-
-  renderMathInElement(document.body, { fleqn: true });
   question.innerText = render.question;
+  renderMathInElement(answer, katexOpts);
+  renderMathInElement(question, katexOpts);
   accordion.style.display = "block";
   questionHeader.style.display = "block";
   question.scrollIntoView({ behaviour: "smooth", block: "center" });
