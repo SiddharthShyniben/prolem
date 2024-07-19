@@ -67,6 +67,7 @@ export const generators = {
     mass_solute: () => getRandomInt(1, 100),
     mass_solvent: () => getRandomInt(1, 100),
     vapor_density: () => getRandomInt(1, 100),
+    mass_percent: () => getRandomInt(1, 99),
   }),
 };
 
