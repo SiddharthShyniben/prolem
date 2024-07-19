@@ -17,7 +17,7 @@ export const eq = (equation) =>
         equation,
         variables: [...equation.matchAll(/([A-z_])+/g)]
           .map((x) => x[0])
-          .filter((x) => ![...Object.keys(constants)].includes(x)),
+          .filter((x) => ![].includes(x)),
       };
 
 export function eqsInTermsOf(prefixes, ...eqs) {
