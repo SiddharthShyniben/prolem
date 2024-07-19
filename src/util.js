@@ -1,5 +1,6 @@
 import { constants } from "./data";
 
+export const $ = (...args) => document.querySelector(...args);
 export function getRandomInt(min, max) {
   const minCeiled = Math.ceil(min);
   const maxFloored = Math.floor(max);

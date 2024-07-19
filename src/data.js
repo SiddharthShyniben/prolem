@@ -78,3 +78,12 @@ export const constants = {
   PI: Math.PI,
   rydberg_constant: 2.18e-18,
 };
+
+export const constantsNames = {
+  Na: "N_A",
+  plancks_constant: "\\textstyle{h}",
+  speed_of_light: "c",
+  ME: "m_e",
+  PI: "\\pi",
+  rydberg_constant: "R_\\text{H}",
+};

@@ -5,18 +5,78 @@
     <meta name="viewport" content="width=device-width" />
     <title>problem generator</title>
 
-    <style>
-      body {
-        font-family: "Helvetica Neue", Arial, sans-serif;
-        color: #333;
-        font-size: 20px;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1 id="problem"></h1>
-    <div id="steps"></div>
+    <h1>Prolem</h1>
+    <small>Generate chemistry problems for self-study</small>
+    <hr />
+    <template id="block">
+      <section>
+        <h3 class="qh">Question</h3>
+        <h2>
+          <div class="problem">
+            <div class="lds-ripple">
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </h2>
+
+        <div class="solution">
+          <h3>
+            Solution
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-chevron-left"
+              >
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </span>
+          </h3>
+        </div>
+        <div class="panel">
+          <p></p>
+          <div class="steps"></div>
+        </div>
+      </section>
+    </template>
+
+    <button id="fab" onclick="window.push()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-plus"
+      >
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+    </button>
+
+    <script
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
     <script src="bundle.js"></script>
   </body>
 </html>
-

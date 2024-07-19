@@ -7,7 +7,7 @@ export function buildStatement({ find, given }) {
   let q = analogies.find((fn) => fn({ find, given }));
   if (q) return q({ find, given });
 
-  const vals = { ...constants };
+  const vals = {};
   for (const k of given) vals[k] = generators[k]?.() || getRandomInt(1, 15);
   return {
     str:
