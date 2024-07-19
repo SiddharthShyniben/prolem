@@ -34,7 +34,7 @@ async function push() {
   question.innerText = render.question;
   accordion.style.display = "block";
   questionHeader.style.display = "block";
-  question.scrollIntoView({ behaviour: "smooth" });
+  question.scrollIntoView({ behaviour: "smooth", block: "center" });
 }
 
 window.push = push;
