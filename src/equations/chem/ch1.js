@@ -34,6 +34,22 @@ export const chemCh1Equations = [
 ].map(eq);
 
 export const chemCh1Names = Object.assign(
+  namesInTermsOf(["a", "b", "solute", "solvent", "ab", "solution"], {
+    moles_molecules: "amount of molecules[ of $]",
+    volm: "volume[ of $] in liters",
+    n_molecules: "no. of molecules[ of $]",
+    n_atoms: "no. of atoms[ of $]",
+    mole_atoms: "amount of atoms[ of $]",
+    atoms_per_molecule: "no. of atoms per molecule[ in $]",
+    weight: "weight[ of $]",
+    mass_atoms: "mass of one mole atoms[ of $]",
+    mass_molecules: "mass of one mole molecules[ of $]",
+    mass_one_atom: "mass of one atom[ of $]",
+    mass_one_molecule: "mass of one molecule[ of $]",
+    mass_solute: "mass of solute[ in $]",
+    mass_solvent: "mass of solvent[ in $]",
+    vapor_density: "vapor density[ of $]",
+  }),
   {
     temp_celsius: "temp. in celsius",
     temp_kelvin: "temp. in kelvin",
@@ -55,20 +71,4 @@ export const chemCh1Names = Object.assign(
     solute_mass_percent: "mass percentage of solute",
     solvent_mass_percent: "mass percentage of solvent",
   },
-  namesInTermsOf(["a", "b", "solute", "solvent"], {
-    moles_molecules: "amount of molecules[ of $]",
-    volm: "volume[ of $] in liters",
-    n_molecules: "no. of molecules[ of $]",
-    n_atoms: "no. of atoms[ of $]",
-    mole_atoms: "amount of atoms[ of $]",
-    atoms_per_molecule: "no. of atoms per molecule[ in $]",
-    weight: "weight[ of $]",
-    mass_atoms: "mass of one mole atoms[ of $]",
-    mass_molecules: "mass of one mole molecules[ of $]",
-    mass_one_atom: "mass of one atom[ of $]",
-    mass_one_molecule: "mass of one molecule[ of $]",
-    mass_solute: "mass of solute[ in $]",
-    mass_solvent: "mass of solvent[ in $]",
-    vapor_density: "vapor density[ of $]",
-  }),
 );
