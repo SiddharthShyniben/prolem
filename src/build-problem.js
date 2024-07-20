@@ -27,7 +27,7 @@ export function buildProblem({ equation, variables }) {
     console.log(
       "%cDEBUG:",
       "background-color: #e0005a ; color: #ffffff ; font-weight: bold ; padding: 4px ;",
-      "find:",
+      "equation:",
       eq,
     );
   }

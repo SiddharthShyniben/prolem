@@ -64,8 +64,8 @@ export const chemCh1Names = Object.assign(
     molality: "molality",
     molarity: "molarity",
 
-    ab_weight: "mass of solution of A and B",
-    solution_weight: "mass of solution",
+    ab_weight: "weight of solution of A and B",
+    solution_weight: "weight of solution",
     a_mass_percent: "mass percentage of A",
     b_mass_percent: "mass percentage of B",
     solute_mass_percent: "mass percentage of solute",
