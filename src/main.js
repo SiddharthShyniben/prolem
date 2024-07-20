@@ -20,8 +20,15 @@ async function push() {
 
   accordionify(accordion, panel);
 
+  if (window.__n_eq !== undefined) {
+    console.log(
+      "%cDEBUG:",
+      "background-color: #e0005a ; color: #ffffff ; font-weight: bold ; padding: 4px ;",
+      equations[window.__n_eq],
+    );
+  }
   const problem = buildProblem(
-    equations[Math.floor(Math.random() * equations.length)],
+    equations[window.__n_eq ?? Math.floor(Math.random() * equations.length)],
   );
 
   const statement = buildStatement(problem);

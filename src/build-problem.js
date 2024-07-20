@@ -8,8 +8,28 @@ import { equations } from "./equations.js";
 import { equate, simplifyOptions } from "./util.js";
 
 export function buildProblem({ equation, variables }) {
-  const find = variables[Math.floor(Math.random() * variables.length)];
+  const find =
+    variables[window.__n_v ?? Math.floor(Math.random() * variables.length)];
+
+  if (window.__n_eq !== undefined) {
+    console.log(
+      "%cDEBUG:",
+      "background-color: #e0005a ; color: #ffffff ; font-weight: bold ; padding: 4px ;",
+      "find:",
+      find,
+    );
+  }
+
   let eq = nerdamer(equation).solveFor(find).toString();
+
+  if (window.__n_eq !== undefined) {
+    console.log(
+      "%cDEBUG:",
+      "background-color: #e0005a ; color: #ffffff ; font-weight: bold ; padding: 4px ;",
+      "find:",
+      eq,
+    );
+  }
 
   const steps = [
     find === variables[0] ? null : equation,
@@ -46,6 +66,15 @@ export function buildProblem({ equation, variables }) {
         }),
     ),
   ];
+
+  if (window.__n_eq !== undefined) {
+    console.log(
+      "%cDEBUG:",
+      "background-color: #e0005a ; color: #ffffff ; font-weight: bold ; padding: 4px ;",
+      "given:",
+      given,
+    );
+  }
 
   return {
     find,
