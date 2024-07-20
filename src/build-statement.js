@@ -1,12 +1,8 @@
 import { generators, units } from "./data";
 import { names } from "./equations";
 import { getRandomInt } from "./util";
-import { analogies } from "./writers";
 
 export function buildStatement({ find, given, steps, equation }) {
-  let writer = analogies.find((fn) => fn({ find, given }));
-  if (writer) return writer({ find, given });
-
   const vals = {};
   for (const k of given) vals[k] = generators[k]?.() || getRandomInt(1, 15);
 
