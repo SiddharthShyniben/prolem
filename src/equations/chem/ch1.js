@@ -12,7 +12,7 @@ export const chemCh1Equations = [
   "molarity = solute_moles_molecules / solvent_volm",
 
   ...eqsInTermsOf(
-    ["a", "b", "solute", "solvent", "ab", "solution"],
+    ["a", "b", "solute", "solvent", "solution"],
     "[]_moles_molecules = []_volm / 22.4",
     "[]_n_molecules = []_moles_molecules * Na",
     "[]_n_atoms = []_mole_atoms * Na",
