@@ -7,6 +7,7 @@ export function buildStatement({ find, given, steps, equation, iv }) {
   for (const k of given) vals[k] = generators[k]?.() || getRandomInt(1, 15);
 
   const surround = (text) => {
+    if (!names[text]) console.error({ names, text });
     const s = names[text].includes("_") || names[text].length === 1 ? "$" : "";
     return s + (s ? "" : "the ") + names[text] + s;
   };
