@@ -3,7 +3,7 @@ import "nerdamer/Algebra";
 import "nerdamer/Calculus";
 import "nerdamer/Solve";
 
-import { parse, resolve, simplify } from "mathjs";
+import { parse, simplify } from "mathjs";
 import { equations } from "./equations.js";
 import { equate, simplifyOptions } from "./util.js";
 import { conditions } from "./conditions.js";
@@ -31,6 +31,9 @@ export function buildProblem({ equation, variables }) {
       eq,
     );
   }
+
+  // Intermediate variables
+  const iv = [];
 
   const steps = [
     find === variables[0] ? null : equation,
@@ -63,11 +66,14 @@ export function buildProblem({ equation, variables }) {
               })
               .toString();
 
+            iv.push(variable);
+
             return otherEquation.variables.filter(
               (otherVariable) =>
                 otherVariable !== variable && otherVariable !== find,
             );
           }
+
           return variable;
         }),
     ),
@@ -90,5 +96,6 @@ export function buildProblem({ equation, variables }) {
     equation: equate(find, simplify(eq, simplifyOptions)),
     steps,
     given,
+    iv: iv.sort(),
   };
 }

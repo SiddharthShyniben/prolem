@@ -3,7 +3,7 @@ import { constants, constantsNames } from "./constants";
 import { names } from "./equations";
 import { varDefs } from "./data";
 
-export function renderStatement({ equation, given, steps, vals, str }) {
+export function renderStatement({ equation, given, iv, steps, vals, str }) {
   const parsedEqn = parse(equation);
 
   let runningVals = {};
@@ -21,6 +21,7 @@ export function renderStatement({ equation, given, steps, vals, str }) {
   let answer = [
     ...new Set(
       given
+        .concat(iv)
         .map((v) => {
           if (varDefs[v]) return `<p>Let $${varDefs[v]}$ = ${names[v]}</p>`;
         })
