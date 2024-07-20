@@ -8,12 +8,12 @@ export function buildStatement({ find, given, steps, equation }) {
 
   const surround = (text) => {
     const s = names[text].includes("_") || names[text].length === 1 ? "$" : "";
-    return s + names[text] + s;
+    return s + (s ? "" : "the ") + names[text] + s;
   };
 
   return {
     str:
-      `Find the ${surround(find)}, if ` +
+      `Find ${surround(find)}, if ` +
       given
         .map(
           (item, i) =>

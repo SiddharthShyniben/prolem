@@ -1,5 +1,5 @@
 import { constants } from "./constants";
-import { getRandomInt, inTermsOf } from "./util";
+import { getRandomInt, inTermsOf, namesInTermsOf } from "./util";
 
 export const units = {
   temp_celsius: "°C",
@@ -55,5 +55,18 @@ export const generators = {
     mass_solvent: () => getRandomInt(1, 100),
     vapor_density: () => getRandomInt(1, 100),
     mass_percent: () => getRandomInt(1, 99),
+  }),
+};
+
+export const varDefs = {
+  molality: "m",
+  molarity: "M",
+  a_moles_molecules: "n_a",
+  b_moles_molecules: "n_b",
+  ...namesInTermsOf(["ab", "solution", "a", "b", "solute", "solvent"], {
+    weight: "W[_{$}]",
+  }),
+  ...namesInTermsOf(["a", "b", "solute", "solvent"], {
+    volm: "V[_{$}]",
   }),
 };

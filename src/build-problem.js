@@ -3,9 +3,10 @@ import "nerdamer/Algebra";
 import "nerdamer/Calculus";
 import "nerdamer/Solve";
 
-import { simplify } from "mathjs";
+import { parse, resolve, simplify } from "mathjs";
 import { equations } from "./equations.js";
 import { equate, simplifyOptions } from "./util.js";
+import { conditions } from "./conditions.js";
 
 export function buildProblem({ equation, variables }) {
   const find =
@@ -52,10 +53,15 @@ export function buildProblem({ equation, variables }) {
             const equated = simplify(
               nerdamer(otherEquation.equation).solveFor(variable).toString(),
               simplifyOptions,
-            ).toString();
+            );
 
             steps.push(equate(variable, simplify(equated, simplifyOptions)));
-            eq = eq.replace(variable, `(${equated})`);
+            eq = parse(eq)
+              .transform((node) => {
+                if (node.isSymbolNode && node.name === variable) return equated;
+                return node;
+              })
+              .toString();
 
             return otherEquation.variables.filter(
               (otherVariable) =>
@@ -75,6 +81,9 @@ export function buildProblem({ equation, variables }) {
       given,
     );
   }
+
+  if (conditions[find] && !conditions[find](given))
+    return buildProblem({ equation, variables });
 
   return {
     find,
