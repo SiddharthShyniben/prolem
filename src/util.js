@@ -23,7 +23,7 @@ export function eqsInTermsOf(prefixes, ...eqs) {
 
   for (const prefix of ["def", ...prefixes])
     for (const equation of eqs)
-      equations.push(eq(equation.replaceAll("{}", prefix)));
+      equations.push(eq(equation.replaceAll("[]", prefix)));
 
   return equations;
 }
@@ -33,7 +33,7 @@ export function namesInTermsOf(prefixes, object) {
     Object.fromEntries(
       Object.entries(object).map(([a, b]) => [
         "def_" + a,
-        b.replace(/{.*?}/g, ""),
+        b.replace(/\[.*?\]/g, ""),
       ]),
     ),
     ...prefixes.map((pre) =>
@@ -41,7 +41,7 @@ export function namesInTermsOf(prefixes, object) {
         Object.entries(object).map(([a, b]) => [
           pre + "_" + a,
           b
-            .replace(/[{}]/g, "")
+            .replace(/[\[\]]/g, "")
             .replaceAll("$", pre.length === 1 ? pre.toUpperCase() : pre),
         ]),
       ),
