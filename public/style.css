@@ -127,7 +127,3 @@ section {
 #fab svg {
   vertical-align: bottom;
 }
-
-.katex-display.fleqn > .katex {
-  padding-left: 0 !important;
-}
