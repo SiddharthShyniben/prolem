@@ -20,49 +20,41 @@ export function renderStatement({ equation, given, iv, steps, vals, str }) {
 
   let answer = [
     ...new Set(
-      given
-        .concat(iv)
-        .map((v) => {
-          if (varDefs[v]) return `<p>Let $${varDefs[v]}$ = ${names[v]}</p>`;
+      steps
+        .flatMap((step, i) => {
+          const parsed = parse(step);
+          const resolved = resolve(parsed.value, vals);
+
+          const step2 = new AssignmentNode(parsed.object, resolved);
+          runningVals[parsed.object.toString()] = resolved;
+
+          return [
+            parsed,
+            i !== steps.length - 1 && step.toString() !== step2.toString()
+              ? step2
+              : null,
+          ]
+            .filter(Boolean)
+            .map((step) => latexify(step.toTex()))
+            .concat("<br>");
         })
-        .filter(Boolean)
         .concat(
-          steps
-            .flatMap((step, i) => {
-              const parsed = parse(step);
-              const resolved = resolve(parsed.value, vals);
+          [
+            parsedEqn.toTex(),
+            transformed.toTex(),
 
-              const step2 = new AssignmentNode(parsed.object, resolved);
-              runningVals[parsed.object.toString()] = resolved;
+            resolve(transformed, { ...constants, ...vals }).toTex(),
 
-              return [
-                parsed,
-                i !== steps.length - 1 && step.toString() !== step2.toString()
-                  ? step2
-                  : null,
-              ]
-                .filter(Boolean)
-                .map((step) => latexify(step.toTex()))
-                .concat("<br>");
-            })
-            .concat(
-              [
-                parsedEqn.toTex(),
-                transformed.toTex(),
-
-                resolve(transformed, { ...constants, ...vals }).toTex(),
-
-                new AssignmentNode(
-                  parsedEqn.object,
-                  parse(
-                    evaluate(parsedEqn.value.toString(), {
-                      ...constants,
-                      ...vals,
-                    }).toString(),
-                  ),
-                ).toTex(),
-              ].map(latexify),
-            ),
+            new AssignmentNode(
+              parsedEqn.object,
+              parse(
+                evaluate(parsedEqn.value.toString(), {
+                  ...constants,
+                  ...vals,
+                }).toString(),
+              ),
+            ).toTex(),
+          ].map(latexify),
         ),
     ),
   ].join("");
@@ -80,6 +72,16 @@ export function renderStatement({ equation, given, iv, steps, vals, str }) {
 
   for (const k in constantsNames)
     answer = answer.replaceAll(k.replaceAll("_", "\\_"), constantsNames[k]);
+
+  answer =
+    given
+      .concat(iv)
+      .map((v) => {
+        console.log({ v, varDefs, names });
+        if (varDefs[v]) return `<p>Let $${varDefs[v]}$ = ${names[v]}</p>`;
+      })
+      .filter(Boolean)
+      .join("") + answer;
 
   return { question: str, answer };
 }
