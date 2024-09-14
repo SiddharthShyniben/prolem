@@ -6,30 +6,6 @@ import {
   shortNamesInTermsOf,
 } from "./util";
 
-export const units = {
-  temp_celsius: "°C",
-  temp_kelvin: "K",
-  temp_fahrenheit: "°F",
-  mole_molecules_solute: "mol",
-  mole_molecules_solvent: "mol",
-  moles_a: "mol",
-  moles_b: "mol",
-  volume_solvent: "L",
-
-  ...inTermsOf(["def", "a", "b", "solute", "solvent"], {
-    moles_molecules: "mol",
-    volm: "L",
-    mole_atoms: "mol",
-    weight: "g",
-    mass_atoms: "g/mol",
-    mass_molecules: "g/mol",
-    mass_one_atom: "g",
-    mass_one_molecule: "g",
-    mass_solute: "g",
-    mass_solvent: "g",
-  }),
-};
-
 export const generators = {
   temp_celsius: () => getRandomInt(-500, 500),
   temp_kelvin: () => getRandomInt(1, 1000),

@@ -1,4 +1,4 @@
-import { generators, units } from "./data";
+import { generators } from "./data";
 import { names } from "./equations";
 import { getRandomInt } from "./util";
 
