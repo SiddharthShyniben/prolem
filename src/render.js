@@ -1,6 +1,6 @@
 import { AssignmentNode, evaluate, parse, resolve } from "mathjs";
 import { constants, constantsNames } from "./constants";
-import { names } from "./equations";
+import { names, shortNames } from "./equations";
 import { varDefs } from "./data";
 
 export function renderStatement({ equation, given, iv, steps, vals, str }) {
@@ -67,7 +67,7 @@ export function renderStatement({ equation, given, iv, steps, vals, str }) {
   for (const k in names)
     answer = answer.replaceAll(
       k.replaceAll("_", "\\_"),
-      "\\mathrm{" + names[k].replaceAll(" ", "\\ ") + "}",
+      "\\mathrm{" + shortNames[k].replaceAll(" ", "\\ ") + "}",
     );
 
   for (const k in constantsNames)
@@ -77,8 +77,8 @@ export function renderStatement({ equation, given, iv, steps, vals, str }) {
     given
       .concat(iv)
       .map((v) => {
-        console.log({ v, varDefs, names });
-        if (varDefs[v]) return `<p>Let $${varDefs[v]}$ = ${names[v]}</p>`;
+        console.log({ v, varDefs, names, shortNames });
+        if (varDefs[v]) return `<p>Let $${varDefs[v]}$ = ${shortNames[v]}</p>`;
       })
       .filter(Boolean)
       .join("") + answer;

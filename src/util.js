@@ -28,7 +28,7 @@ export function eqsInTermsOf(prefixes, ...eqs) {
   return equations;
 }
 
-export function namesInTermsOf(prefixes, object) {
+export function shortNamesInTermsOf(prefixes, object) {
   return Object.assign(
     Object.fromEntries(
       Object.entries(object).map(([a, b]) => [
@@ -44,6 +44,19 @@ export function namesInTermsOf(prefixes, object) {
             .replace(/[\[\]]/g, "")
             .replaceAll("$", pre.length === 1 ? pre.toUpperCase() : pre),
         ]),
+      ),
+    ),
+  );
+}
+
+export function namesInTermsOf(prefixes, object) {
+  return Object.assign(
+    Object.fromEntries(
+      Object.entries(object).map(([a, b]) => ["def_" + a, b()]),
+    ),
+    ...prefixes.map((pre) =>
+      Object.fromEntries(
+        Object.entries(object).map(([a, b]) => [pre + "_" + a, b(pre)]),
       ),
     ),
   );
