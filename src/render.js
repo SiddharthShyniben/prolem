@@ -3,7 +3,15 @@ import { constants, constantsNames } from "./constants";
 import { names, shortNames } from "./equations";
 import { varDefs } from "./data";
 
-export function renderStatement({ equation, given, iv, steps, vals, str }) {
+export function renderStatement({
+  find,
+  equation,
+  given,
+  iv,
+  steps,
+  vals,
+  str,
+}) {
   const parsedEqn = parse(equation);
 
   let runningVals = {};
@@ -64,7 +72,8 @@ export function renderStatement({ equation, given, iv, steps, vals, str }) {
       k.replaceAll("_", "\\_"),
       varDefs[k].replaceAll(" ", "\\ "),
     );
-  for (const k in names)
+
+  for (const k in shortNames)
     answer = answer.replaceAll(
       k.replaceAll("_", "\\_"),
       "\\mathrm{" + shortNames[k].replaceAll(" ", "\\ ") + "}",
@@ -76,8 +85,9 @@ export function renderStatement({ equation, given, iv, steps, vals, str }) {
   answer =
     given
       .concat(iv)
+      .concat([find])
       .map((v) => {
-        console.log({ v, varDefs, names, shortNames });
+        console.log({ v, x: varDefs[v] });
         if (varDefs[v]) return `<p>Let $${varDefs[v]}$ = ${shortNames[v]}</p>`;
       })
       .filter(Boolean)

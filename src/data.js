@@ -1,10 +1,5 @@
 import { constants } from "./constants";
-import {
-  getRandomInt,
-  inTermsOf,
-  namesInTermsOf,
-  shortNamesInTermsOf,
-} from "./util";
+import { getRandomInt, inTermsOf, shortNamesInTermsOf } from "./util";
 
 export const generators = {
   temp_celsius: () => getRandomInt(-500, 500),
