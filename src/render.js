@@ -1,6 +1,6 @@
 import { AssignmentNode, evaluate, parse, resolve } from "mathjs";
 import { constants, constantsNames } from "./constants";
-import { names, shortNames } from "./equations";
+import { shortNames } from "./equations";
 import { varDefs } from "./data";
 
 export function renderStatement({

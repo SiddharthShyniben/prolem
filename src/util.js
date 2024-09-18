@@ -80,3 +80,11 @@ export const katexOpts = {
     { left: "$", right: "$", display: false },
   ],
 };
+
+export const debugLog = (...msg) =>
+  false &&
+  console.log(
+    "%cDEBUG:",
+    "background-color: #e0005a ; color: #ffffff ; font-weight: bold ; padding: 4px ;",
+    ...msg,
+  );

@@ -2,9 +2,11 @@ import { buildProblem } from "./build-problem";
 import { buildStatement } from "./build-statement";
 import { equations } from "./equations";
 import { accordionify } from "./animate";
-import { $, katexOpts } from "./util";
+import { $, debugLog, katexOpts } from "./util";
 import { renderStatement } from "./render";
 import "./test.js";
+
+window.__n_d = 2;
 
 const template = $("#block");
 
@@ -20,16 +22,14 @@ async function push() {
 
   accordionify(accordion, panel);
 
-  if (window.__n_eq !== undefined) {
-    console.log(
-      "%cDEBUG:",
-      "background-color: #e0005a ; color: #ffffff ; font-weight: bold ; padding: 4px ;",
-      equations[window.__n_eq],
-    );
-  }
+  if (window.__n_eq !== undefined) debugLog(equations[window.__n_eq]);
+
   const problem = buildProblem(
     equations[window.__n_eq ?? Math.floor(Math.random() * equations.length)],
+    window.__n_d,
   );
+
+  debugLog({ problem });
 
   const statement = buildStatement(problem);
   const render = renderStatement(statement);

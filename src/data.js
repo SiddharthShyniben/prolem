@@ -48,7 +48,7 @@ export const varDefs = {
     moles_molecules: "n[_{$}]",
     volm: "V[_{$}]",
     n_molecules: "M[_{$}]",
-    n_atoms: "N[_{$}]",
+    n_atoms: "A[_{$}]",
   }),
 
   temp_celsius: "t_C",
