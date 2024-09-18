@@ -19,6 +19,7 @@ export function buildProblem({ equation, variables }, difficulty = 1) {
 
   // Intermediate variables
   const iv = [];
+  const ie = [];
 
   const steps = [
     find === variables[0] ? null : equation,
@@ -34,11 +35,13 @@ export function buildProblem({ equation, variables }, difficulty = 1) {
       (other) =>
         !iv.includes(variable) &&
         other.equation !== equation &&
+        !ie.includes(other.equation) &&
         other.variables.includes(variable) &&
         !other.variables.includes(find),
     );
 
     if (otherEquation) {
+      ie.push(otherEquation.equation);
       const equated = simplify(
         nerdamer(otherEquation.equation).solveFor(variable).toString(),
         simplifyOptions,
@@ -68,7 +71,7 @@ export function buildProblem({ equation, variables }, difficulty = 1) {
     if (currentDifficulty <= 0) return;
 
     // Update `given` for each variable substitution
-    given = [
+    const tempGiven = [
       ...new Set(given.flatMap((variable) => processVariable(variable))),
     ];
 
@@ -78,6 +81,8 @@ export function buildProblem({ equation, variables }, difficulty = 1) {
     if (conditions[find] && !conditions[find](given)) {
       return;
     }
+
+    given = tempGiven;
 
     debugLog(JSON.stringify({ find, given, iv }, null, 2));
 
@@ -92,7 +97,7 @@ export function buildProblem({ equation, variables }, difficulty = 1) {
     find,
     equation: equate(find, simplify(eq, simplifyOptions)),
     steps,
-    given: [...new Set(given)], // Ensure unique `given` values
+    given: [...new Set(given)].sort(), // Ensure unique `given` values
     iv: iv.filter((a) => !given.includes(a)).sort(),
   };
 }

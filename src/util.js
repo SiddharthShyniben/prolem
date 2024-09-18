@@ -12,7 +12,7 @@ export const eq = (equation) =>
   equation.equation
     ? equation
     : {
-        equation,
+        equation: equation.split(" --- ")[0],
         variables: [...equation.matchAll(/[A-z_]+/g)]
           .map((x) => x[0])
           .filter((x) => !["e", ...Object.keys(constants)].includes(x)),

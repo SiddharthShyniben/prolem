@@ -89,7 +89,7 @@ export const chemCh1Names = Object.assign(
       (suffix = "substance") =>
       (value) =>
         value
-          ? `The weight of some amount of ${_fix(suffix)} is ${value}g`
+          ? `The weight of ${_fix(suffix)} is ${value}g`
           : `How much weight does ${_fix(suffix)} have?`,
     mass_atoms:
       (suffix = "substance") =>
