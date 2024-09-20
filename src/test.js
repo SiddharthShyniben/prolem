@@ -27,7 +27,7 @@ function test() {
   console.log(i, "overlaps found");
   console.log(j, "missing names");
 
-  console.timeLog("test");
+  console.timeEnd("test");
 }
 
 window.test = test;
