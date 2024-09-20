@@ -20,7 +20,6 @@ export const chemCh1Equations = [
 
   ...eqsInTermsOf(
     ["a", "b", "solute", "solvent", "solution"],
-    "[]_moles_molecules = []_volm / 22.4",
     "[]_n_molecules = []_moles_molecules * Na",
     "[]_n_atoms = []_mole_atoms * Na",
     "[]_atoms_per_molecule = []_n_atoms / []_n_molecules",
@@ -31,24 +30,46 @@ export const chemCh1Equations = [
     "[]_mass_molecules = 2 * []_vapor_density",
   ),
 
-  "ab_weight = a_weight + b_weight",
-  "a_mass_percent = a_weight * 100 / ab_weight",
-  "b_mass_percent = b_weight * 100 / ab_weight",
+  ...eqsInTermsOf(
+    ["gas_a", "gas_b", "gas_solute", "gas_solvent", "gas_solution"],
+    "[]_n__molecules = []_moles__molecules * Na",
+    "[]_n__atoms = []_mole__atoms * Na",
+    "[]_atoms__per_molecule = []_n__atoms / []_n__molecules",
+    "[]_mole__atoms = []_w_eight / []_mass__atoms",
+    "[]_moles__molecules = []_w_eight / []_mass__molecules",
+    "[]_mass__one_atom = []_mass__atoms / Na",
+    "[]_mass__one_molecule = []_mass__molecules / Na",
+    "[]_mass__molecules = 2 * []_vapor__density",
+    "[]_moles__molecules = []_v_olm / 22.4",
+  ),
+
+  "ab__weight = a_weight + b_weight",
+  "a_mass_percent = a_weight * 100 / ab__weight",
+  "b_mass_percent = b_weight * 100 / ab__weight",
 
   "solution_weight = solvent_weight + solute_weight",
   "solute_mass_percent = solute_weight * 100 / solution_weight",
   "solvent_mass_percent = solvent_weight * 100 / solution_weight",
 ].map(eq);
 
+const names = {
+  gas_a: "gas A",
+  gas_b: "gas B",
+  gas_solute: "gaseous solute",
+  gas_solvent: "gaseous solvent",
+  gas_solution: "gaseous solution",
+};
+
 const _fix = (suffix) =>
-  suffix.length == 1
+  names[suffix] ??
+  (suffix.length == 1
     ? suffix.toUpperCase()
     : suffix === "ab"
       ? "a solution of A and B"
-      : suffix;
+      : suffix);
 
 export const chemCh1Names = Object.assign(
-  namesInTermsOf(["a", "b", "solute", "solvent", "ab", "solution"], {
+  namesInTermsOf(["a", "b", "solute", "solvent", "solution"], {
     moles_molecules:
       (suffix = "substance") =>
       (value) =>
@@ -134,10 +155,96 @@ export const chemCh1Names = Object.assign(
           ? `The vapor density of ${_fix(suffix)} is ${value}g`
           : `What is the vapor density of ${_fix(suffix)}?`,
   }),
+  namesInTermsOf(
+    ["gas_a", "gas_b", "gas_solute", "gas_solvent", "gas_solution"],
+    {
+      moles__molecules:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The amount of molecules of ${_fix(suffix)} is ${value}mol`
+            : `How much molecules of ${_fix(suffix)} are there, in moles?`,
+      v_olm:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The volume of ${_fix(suffix)} is ${value}L`
+            : `What is the volume of ${_fix(suffix)} in liters?`,
+      n__molecules:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The number of molecules of ${_fix(suffix)} is ${value}`
+            : `How many molecules of ${_fix(suffix)} are there, in moles?`,
+      n__atoms:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The number of atoms of ${_fix(suffix)} is ${value}`
+            : `How many atoms of ${_fix(suffix)} are there, in moles?`,
+      mole__atoms:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The amount of atoms of ${_fix(suffix)} is ${value}mol`
+            : `How many atoms of ${_fix(suffix)} are there, in moles?`,
+      atoms__per_molecule:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The number of atoms in a molecule of ${_fix(suffix)} is ${value}`
+            : `How many atoms are there in each molecule of ${_fix(suffix)}?`,
+      w_eight:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The weight of ${_fix(suffix)} is ${value}g`
+            : `How much weight does ${_fix(suffix)} have?`,
+      mass__atoms:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The mass of one mole atom of ${_fix(suffix)} is ${value}g`
+            : `What is the mass of one mole atom of ${_fix(suffix)}?`,
+      mass__molecules:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The mass of one mole molecule of ${_fix(suffix)} is ${value}g`
+            : `What is the mass of one mole molecule of ${_fix(suffix)}?`,
+      mass__one_atom:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The mass of one atom of ${_fix(suffix)} is ${value}g`
+            : `What is the mass of one atom of ${_fix(suffix)}?`,
+      mass__one_molecule:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The mass of one molecule of ${_fix(suffix)} is ${value}g`
+            : `What is the mass of one molecule of ${_fix(suffix)}?`,
+      mass__solute:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The mass of the solute in ${_fix(suffix)} is ${value}g`
+            : `What is the mass of the solute in ${_fix(suffix)}?`,
+      mass__solvent:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The mass of the solvent in ${_fix(suffix)} is ${value}g`
+            : `What is the mass of the solvent in ${_fix(suffix)}?`,
+      vapor__density:
+        (suffix = "substance") =>
+        (value) =>
+          value
+            ? `The vapor density of ${_fix(suffix)} is ${value}g`
+            : `What is the vapor density of ${_fix(suffix)}?`,
+    },
+  ),
   {
-    // temp_celsius: "temp. in celsius",
-    // temp_kelvin: "temp. in kelvin",
-    // temp_fahrenheit: "temp. in fahrenheit",
     temp_celsius: (value) =>
       value
         ? `The temperature of a substance is ${value}°C`
@@ -172,7 +279,7 @@ export const chemCh1Names = Object.assign(
         ? `The molarity of a solution is ${value}m`
         : "What is the molarity of the solution?",
 
-    ab_weight: (value) =>
+    ab__weight: (value) =>
       value
         ? `The weight of solution of A and B is ${value}g`
         : "What is the weight of the solution of A and B?",
@@ -226,7 +333,7 @@ export const chemCh1ShortNames = Object.assign(
     Xb: "X_b",
     molality: "molality of solution",
     molarity: "molarity of solution",
-    ab_weight: "weight of solution of A and B",
+    ab__weight: "weight of solution of A and B",
     solution_weight: "weight of solution",
     a_mass_percent: "mass percentage of A",
     b_mass_percent: "mass percentage of B",
